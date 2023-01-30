@@ -1,10 +1,17 @@
-.header {
+.headerImage {
     grid-area: h;
-    background-color: white;
+    background-color: rgba(211, 255, 253, 0.815);
   }
   
-  .header img {
+  .headerImage img {
     height: 60px;
     width: 50px;
   }
-  
+  /* .headerElements {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+    overflow: hidden;
+
+  }
+   */
