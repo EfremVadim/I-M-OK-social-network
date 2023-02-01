@@ -29,4 +29,15 @@ let state = {
     sidebar: {},
 };
 
+export let addPost = (postMessage) => {
+    debugger;
+    let newPost = {
+        id: 3,
+        message: postMessage,
+        likesCount: 0,
+    };
+    state.profilePage.posts.push(newPost);
+};
+
+
 export default state;
