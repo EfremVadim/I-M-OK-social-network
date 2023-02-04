@@ -8,9 +8,9 @@ import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
-
+   
 const App = (props) => {
-
+ 
   return (
     <div className='app-wrapper'>
       <Header />

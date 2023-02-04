@@ -3,7 +3,7 @@ import { rerenderEntireTree } from "../render";
 let state = {
     profilePage: {
         posts: [
-            { id: 1, message: 'Hi, how are you', likesCount: 333, },
+            { id: 1, message: 'Hello, how are you', likesCount: 333, },
             { id: 2, message: 'It is my first post', likesCount: 777, },
         ],
     },
