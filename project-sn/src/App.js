@@ -10,7 +10,7 @@ import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
    
 const App = (props) => {
- 
+
   return (
     <div className='app-wrapper'>
       <Header />
@@ -21,7 +21,8 @@ const App = (props) => {
             dialogsState={props.indexState.dialogsPage} />} />
           <Route path='/profile' element={<Profile
             profileState={props.indexState.profilePage}
-            addPost={props.addPost} />} />
+            addPost={props.addPost}
+            updateNewPostText={props.updateNewPostText} />} />
           <Route path='/news' element={<News />} />
           <Route path='/settings' element={<Settings />} />
           <Route path='/music' element={<Music />} />
