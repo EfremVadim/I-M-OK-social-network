@@ -1,6 +1,7 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import s from './Navbar.module.css';
+
 const Navbar = (props) => {
     return (
         <nav className={s.nav}>
@@ -9,6 +10,9 @@ const Navbar = (props) => {
             </div>
             <div>
                 <NavLink to='/messages' className={navData => navData.isActive ? s.active : s.item}>Messages</NavLink>
+            </div>
+            <div>
+                <NavLink to='/users' className={navData => navData.isActive ? s.active : s.item}>Users</NavLink>
             </div>
             <div>
                 <NavLink to='/news' className={navData => navData.isActive ? s.active : s.item}>News</NavLink>
