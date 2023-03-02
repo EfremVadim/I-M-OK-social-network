@@ -6,7 +6,7 @@ const Navbar = (props) => {
     return (
         <nav className={s.nav}>
             <div>
-                <NavLink to='/profile' className={navData => navData.isActive ? s.active : s.item}>Profile</NavLink>
+                <span><NavLink to='/profile' className={navData => navData.isActive ? s.active : s.item}>Profile</NavLink></span>
             </div>
             <div>
                 <NavLink to='/messages' className={navData => navData.isActive ? s.active : s.item}>Messages</NavLink>
@@ -21,7 +21,7 @@ const Navbar = (props) => {
                 <NavLink to='/music' className={navData => navData.isActive ? s.active : s.item}>Music</NavLink>
             </div>
             <div>
-                <NavLink to='/settings' className={navData => navData.isActive ? s.active : s.item}>Settings</NavLink>
+                <p><NavLink to='/settings' className={navData => navData.isActive ? s.active : s.item}>Settings</NavLink></p>
             </div>
         </nav>
     );
