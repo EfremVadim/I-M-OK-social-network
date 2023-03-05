@@ -1,17 +1,24 @@
 .headerImage {
 
-    background-color: rgba(211, 255, 253, 0.815);
-  }
-  
-  .headerImage img {
+    background-color: lightslategrey;
+}
+
+.headerImage img {
     height: 70px;
     width: 115px;
-  }
-  .headerElements {
+}
+
+.headerElements {
     grid-area: h;
     display: inline-block;
     max-width: 100%;
     height: auto;
     overflow: hidden;
 
-  }
+}
+.loginBlock {
+  float: right;
+}
+.loginBlock a {
+    color: black;
+}

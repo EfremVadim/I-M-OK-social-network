@@ -2,6 +2,7 @@ const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_FULL_NAME = 'SET_FULL_NAME';
+const SET_USER_ID = 'SET_USER_ID';
 
 
 let initialState = {
@@ -12,6 +13,7 @@ let initialState = {
     newPostText: '',
     profile: null,
     fullName: null,
+    userId: null
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -43,6 +45,13 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 fullName: action.fullName
             }
+        case SET_USER_ID:
+            return {
+                ...state,
+                userId: action.userId
+            }
+
+
         default:
             return state;
     }
@@ -57,5 +66,8 @@ export const setUserProfile = (profile) =>
     ({type: SET_USER_PROFILE, profile});
 export const setFullName = (fullName) =>
     ({type: SET_FULL_NAME, fullName})
+export const setUserId = (userId) =>
+    ({type: SET_USER_ID, userId})
+
 
 export default profileReducer;

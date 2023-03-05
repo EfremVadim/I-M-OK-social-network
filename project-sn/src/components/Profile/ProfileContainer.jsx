@@ -2,7 +2,7 @@ import React from 'react';
 import Profile from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
-import {setFullName, setUserProfile} from "../../redux/profile-reducer";
+import {setFullName, setUserId, setUserProfile} from "../../redux/profile-reducer";
 import {useParams} from "react-router-dom";
 
 export function withRouter(Children) {
@@ -19,7 +19,7 @@ class ProfileContainer extends React.Component {
 
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 2;
+            userId = 28207;
         }
 
         axios
@@ -27,6 +27,7 @@ class ProfileContainer extends React.Component {
             .then(response => {
                 this.props.setUserProfile(response.data);
                 this.props.setFullName(response.data.fullName);
+                this.props.setUserId(response.data.userId)
             });
         if (!this.props.match.params.userId) {
             return <Profile/>
@@ -34,7 +35,6 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
-
 
 
         return (
@@ -45,10 +45,15 @@ class ProfileContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
-    fullName: state.profilePage.fullName
+    fullName: state.profilePage.fullName,
+    userId: state.profilePage.userId
 
 })
 
 let WithUrlDataProfileComponent = withRouter(ProfileContainer);
 
-export default connect(mapStateToProps, {setUserProfile, setFullName})(withRouter(WithUrlDataProfileComponent));
+export default connect(mapStateToProps, {
+    setUserProfile,
+    setFullName,
+    setUserId
+})(withRouter(WithUrlDataProfileComponent));

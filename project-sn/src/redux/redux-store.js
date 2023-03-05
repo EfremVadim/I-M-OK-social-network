@@ -4,6 +4,7 @@ import profileReducer from "./profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import usersReducer from "./users-reducer";
 import musicReducer from "./music-reducer";
+import authReducer from "./auth-reducer";
 
 let reducers = combineReducers({
     profilePage: profileReducer,
@@ -11,6 +12,7 @@ let reducers = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     musicPage: musicReducer,
+    auth: authReducer,
 });
 
 let store = legacy_createStore(reducers);
