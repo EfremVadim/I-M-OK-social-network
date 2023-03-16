@@ -1,5 +1,4 @@
 import {usersAPI} from "../api/api";
-import Profile from "../components/Profile/Profile";
 import React from "react";
 
 const ADD_POST = 'ADD-POST';
