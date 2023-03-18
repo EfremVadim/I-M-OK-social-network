@@ -65,20 +65,20 @@ export const addPostActionCreator = () =>
     ({type: ADD_POST});
 export const updateNewPostTextActionCreator = (text) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text});
-export const setUserProfileSuccess = (profile) =>
+export const setUserProfile = (profile) =>
     ({type: SET_USER_PROFILE, profile});
 export const setFullName = (fullName) =>
     ({type: SET_FULL_NAME, fullName})
 export const setUserId = (userId) =>
     ({type: SET_USER_ID, userId})
 
-export const setUserProfile = (userId) => {
+export const getUserProfile = (userId) => {
 
     return (dispatch) => {
 
         usersAPI.getProfileData(userId)
             .then(data => {
-                dispatch(setUserProfileSuccess(data))
+                dispatch(setUserProfile(data))
                 dispatch(setFullName(data.fullName))
                 dispatch(setUserId(data.userId))
             })

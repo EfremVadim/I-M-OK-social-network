@@ -1,12 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { sendMessageActionCreater, updateNewMessageTextActionCreater } from '../../redux/dialogs-reducer';
+import {connect} from 'react-redux';
+import {sendMessageActionCreater, updateNewMessageTextActionCreater} from '../../redux/dialogs-reducer';
 import Dialogs from './Dialogs';
+import {withAuthNavigate} from "../../HOC/withAuthNavigate";
 
 let mapStateToProps = (state) => {
     return {
         dialogsPage: state.dialogsPage,
-        newMessageText: state.dialogsPage.newMessageText
+        newMessageText: state.dialogsPage.newMessageText,
     }
 }
 
@@ -21,10 +22,6 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
-
-
-
-
+const DialogsContainer = withAuthNavigate(connect(mapStateToProps, mapDispatchToProps)(Dialogs))
 
 export default DialogsContainer;

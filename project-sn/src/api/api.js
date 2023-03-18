@@ -34,14 +34,6 @@ export const usersAPI = {
             })
     },
 
-    setAuthUser() {
-        return instance
-            .get(`auth/me`)
-            .then(response => {
-                return response.data
-            })
-    },
-
     getProfileData(userId) {
         return instance
             .get(`profile/${userId}`)
@@ -50,4 +42,15 @@ export const usersAPI = {
                 return response.data
             });
     }
+}
+
+export const authAPI = {
+
+    setMe() {
+        return instance
+            .get(`auth/me`)
+            .then(response => {
+                return response.data
+            })
+    },
 }
