@@ -2,17 +2,9 @@ import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {getUserProfile, setFullName, setUserId} from "../../redux/profile-reducer";
-import {useParams} from "react-router-dom";
 import {withAuthNavigate} from "../../HOC/withAuthNavigate";
-
-export function withRouter(Children) {
-
-    return (props) => {
-        const match = {params: useParams()};
-
-        return <Children {...props} match={match}/>
-    }
-}
+import {compose} from "redux";
+import {withRouter} from "../../HOC/withRouterComponent";
 
 class ProfileContainer extends React.Component {
 
@@ -38,16 +30,25 @@ class ProfileContainer extends React.Component {
     }
 }
 
-let AuthNavigateComponent = withAuthNavigate(ProfileContainer);
-
 const mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     fullName: state.profilePage.fullName,
     userId: state.profilePage.userId,
 })
 
-let WithUrlDataProfileComponent = withRouter(AuthNavigateComponent);
+export default compose(
+    connect(mapStateToProps, {
+        getUserProfile, setFullName, setUserId,
+    }),
+    withRouter,
+    withAuthNavigate
+)
+(ProfileContainer)
 
-export default connect(mapStateToProps, {
-    getUserProfile, setFullName, setUserId,
-})(withRouter(WithUrlDataProfileComponent));
+// let AuthNavigateComponent = withAuthNavigate(ProfileContainer);
+//
+// let WithUrlDataProfileComponent = withRouter(AuthNavigateComponent);
+//
+// connect(mapStateToProps, {
+//     getUserProfile, setFullName, setUserId,
+// })(withRouter(WithUrlDataProfileComponent))

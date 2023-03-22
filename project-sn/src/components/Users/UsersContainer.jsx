@@ -8,6 +8,7 @@ import {
     unFollow, getUsers
 } from "../../redux/users-reducer";
 import {withAuthNavigate} from "../../HOC/withAuthNavigate";
+import {compose} from "redux";
 
 class UsersContainer extends React.Component {
 
@@ -73,7 +74,9 @@ const mapStateToProps = (state) => {
 //     }
 // }
 
-export default withAuthNavigate(connect(mapStateToProps, {
-    follow, unFollow, setCurrentPage, toggleFollowingProgress, getUsers
-})
-(UsersContainer))
+export default compose(
+    connect(mapStateToProps, {
+        follow, unFollow, setCurrentPage, toggleFollowingProgress, getUsers
+    }),
+    withAuthNavigate
+)(UsersContainer)
