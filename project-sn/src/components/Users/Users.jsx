@@ -2,8 +2,6 @@ import React from 'react';
 import styles from './Users.module.css';
 import userPhoto from '../../assets/images/user.png'
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../api/api";
-import {follow} from "../../redux/users-reducer";
 
 const Users = (props) => {
 
@@ -33,7 +31,8 @@ const Users = (props) => {
                 })}
             </div>
 
-            {props.users.map(u => <div key={u.id}>
+            {props.users.map(u =>
+                <div key={u.id}>
                     <span>
                         <div>
                             <NavLink to={'./../profile/' + u.id}>
@@ -46,16 +45,20 @@ const Users = (props) => {
                             {u.followed
                                 ? <button
                                     disabled={props.followingInProgress.some(id => id === u.id)}
-                                    onClick={() => {props.unFollow(u.id)}}>Unfollow</button>
+                                    onClick={() => {
+                                        props.unFollow(u.id)
+                                    }}>Unfollow</button>
                                 : <button
                                     disabled={props.followingInProgress.some(id => id === u.id)}
-                                    onClick={() => {props.follow(u.id)}}>Follow</button>}
+                                    onClick={() => {
+                                        props.follow(u.id)
+                                    }}>Follow</button>}
                         </div>
                     </span>
                     <span>
                         <span>
                             <div>Name: {u.name}</div>
-                            <div>Status: {u.status}</div>
+                            <div>Status: {props.status}</div>
                         </span>
                         <span>
                             <div>From:

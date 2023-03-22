@@ -6,7 +6,7 @@ const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_FULL_NAME = 'SET_FULL_NAME';
 const SET_USER_ID = 'SET_USER_ID';
-
+const SET_USER_STATUS = 'SET_USER_STATUS';
 
 let initialState = {
     posts: [
@@ -16,7 +16,8 @@ let initialState = {
     newPostText: '',
     profile: null,
     fullName: null,
-    userId: null
+    userId: null,
+    status: null,
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -53,8 +54,11 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 userId: action.userId
             }
-
-
+        case SET_USER_STATUS:
+            return {
+                ...state,
+                status: action.status
+            }
         default:
             return state;
     }
@@ -71,6 +75,19 @@ export const setFullName = (fullName) =>
     ({type: SET_FULL_NAME, fullName})
 export const setUserId = (userId) =>
     ({type: SET_USER_ID, userId})
+export const setUserStatus = (status) =>
+    ({type: SET_USER_STATUS, status})
+
+export const getUserStatus = (userId) => {
+
+    return (dispatch) => {
+
+        usersAPI.getUserStatus(userId)
+            .then(data => {
+                dispatch(setUserStatus(data))
+            })
+    }
+}
 
 export const getUserProfile = (userId) => {
 
@@ -84,4 +101,5 @@ export const getUserProfile = (userId) => {
             })
     }
 }
+
 export default profileReducer;
