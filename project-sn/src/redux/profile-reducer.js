@@ -1,4 +1,4 @@
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 import React from "react";
 
 const ADD_POST = 'ADD-POST';
@@ -17,7 +17,7 @@ let initialState = {
     profile: null,
     fullName: null,
     userId: null,
-    status: null,
+    status: '',
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -78,16 +78,23 @@ export const setUserId = (userId) =>
 export const setUserStatus = (status) =>
     ({type: SET_USER_STATUS, status})
 
-export const getUserStatus = (userId) => {
+export const getUserStatus = (userId) => (dispatch) => {
 
-    return (dispatch) => {
-
-        usersAPI.getUserStatus(userId)
-            .then(data => {
-                dispatch(setUserStatus(data))
+        profileAPI.getUsersStatus(userId)
+            .then(response => {
+                    dispatch(setUserStatus(response))
             })
     }
-}
+
+export const updateUserStatus = (status) => (dispatch) => {
+
+        profileAPI.updateUsersStatus(status)
+            .then(response => {
+                if (response.resultCode === 0) {
+                    dispatch(setUserStatus(status))
+                }
+            })
+    }
 
 export const getUserProfile = (userId) => {
 
