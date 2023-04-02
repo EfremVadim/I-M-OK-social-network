@@ -1,11 +1,11 @@
-import {useParams} from "react-router-dom";
+import {useLocation, useParams, useNavigate} from "react-router-dom";
 import React from "react";
 
-export function withRouter(Children) {
+export const withRouter = (Children) => (props) => {
 
-    return (props) => {
+        const location = useLocation();
+        const navigate = useNavigate();
         const match = {params: useParams()};
 
-        return <Children {...props} match={match}/>
-    }
+        return <Children {...props} match={match} router={{location, navigate}}/>
 }
