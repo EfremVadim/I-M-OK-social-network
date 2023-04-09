@@ -1,8 +1,7 @@
-import React from "react";
 import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
-const SET_USER_DATA = 'SET_USER_DATA';
+const SET_USER_DATA = 'i-am-ok-network/auth/SET_USER_DATA';
 
 let initialState = {
     userId: null,
@@ -29,37 +28,29 @@ const authReducer = (state = initialState, action) => {
 export const setAuthUser = (userId, email, login, isAuth) =>
     ({type: SET_USER_DATA, payload: {userId, login, email, isAuth}})
 
-export const getAuthUserData = () => (dispatch) => {
+export const getAuthUserData = () => async (dispatch) => {
+    let response = await authAPI.setMe()
 
-       return authAPI.setMe()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    let {id, email, login} = data.data
-                    dispatch(setAuthUser(id, email, login, true));
-                }
-            });
+    if (response.resultCode === 0) {
+        let {id, email, login} = response.data
+        dispatch(setAuthUser(id, email, login, true));
+    }
 }
-export const login = (email, password, rememberMe) => (dispatch) => {
+export const login = (email, password, rememberMe) => async (dispatch) => {
+    let response = await authAPI.getLogin(email, password, rememberMe)
 
-        authAPI.getLogin(email, password, rememberMe)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(getAuthUserData())
-                } else {
-                    let message = data.messages.length > 0 ? data.messages[0] : 'Some Error';
-                    dispatch(stopSubmit('login', {_error: message}));
-                }
-            });
+    if (response.resultCode === 0) {
+        dispatch(getAuthUserData())
+    } else {
+        let message = response.messages.length > 0 ? response.messages[0] : 'Some Error';
+        dispatch(stopSubmit('login', {_error: message}));
+    }
 }
-export const logout = () => {
+export const logout = () => async (dispatch) => {
+    let response = await authAPI.getLogout()
 
-    return (dispatch) => {
-        authAPI.getLogout()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(setAuthUser(null, null, null, false));
-                }
-            });
+    if (response.resultCode === 0) {
+        dispatch(setAuthUser(null, null, null, false));
     }
 }
 
