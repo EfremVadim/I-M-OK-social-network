@@ -3,12 +3,9 @@ import s from './ProfileInfo.module.css';
 import Preloader from "../../Common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
-const ProfileInfo = (props) => {
+const ProfileInfo = ({profile, fullName, userId, status, updateUserStatus}) => {
 
-    if (!props.profile) {
-        return <Preloader/>
-    }
-    if (!props.fullName) {
+    if (!profile || !fullName) {
         return <Preloader/>
     }
 
@@ -18,19 +15,19 @@ const ProfileInfo = (props) => {
                 <hr/>
             </div>
             <div className={s.fullName}>
-                {props.fullName}
+                {fullName}
             </div>
             <div>
-                ID {props.userId}
+                ID {userId}
             </div>
             <div className={s.descriptionBlock}>
                 <img
                     src="https://media.istockphoto.com/id/1348390608/vector/okey-gesture-and-red-eye-im-ok-slogan-vector-hand-drawn-doodle-cartoon-illustration-icon.jpg?s=612x612&w=0&k=20&c=mEFYJBcjNEjMmeS9zhHFk4BiiuuJwMcSWodet80XYg8="/>
             </div>
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large}/>
+                <img src={profile.photos.large}/>
 
-                <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}/>
+                <ProfileStatusWithHooks status={status} updateUserStatus={updateUserStatus}/>
             </div>
         </div>
     );
