@@ -46,5 +46,10 @@
   "devDependencies": {
     "eslint": "^8.36.0",
     "eslint-config-react-app": "^7.0.1"
+  },
+  "jest":{
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(react-leaflet|@react-leaflet|d3-*|axios))"
+    ]
   }
 }
