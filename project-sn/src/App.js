@@ -14,9 +14,6 @@ import Preloader from "./components/Common/Preloader/Preloader";
 import {withRouter} from "./HOC/withRouterComponent";
 import {compose} from "redux";
 
-//import DialogsContainer from './components/Dialogs/DialogsContainer';
-//import ProfileContainer from "./components/Profile/ProfileContainer";
-
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 
