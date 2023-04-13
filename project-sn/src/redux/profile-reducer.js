@@ -6,6 +6,7 @@ const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_FULL_NAME = 'SET_FULL_NAME';
 const SET_USER_ID = 'SET_USER_ID';
 const SET_USER_STATUS = 'SET_USER_STATUS';
+const SET_USER_PHOTO = 'SET_USER_PHOTO';
 
 let initialState = {
     posts: [
@@ -34,7 +35,8 @@ const profileReducer = (state = initialState, action) => {
             }
         case DELETE_POST:
             return {
-                ...state, posts: state.posts.filter(p => p.id !== action.postId)
+                ...state,
+                posts: state.posts.filter(p => p.id !== action.postId)
             }
         case SET_USER_PROFILE:
             return {
@@ -56,6 +58,11 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 status: action.status
             }
+        case SET_USER_PHOTO:
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos}
+            }
         default:
             return state;
     }
@@ -74,11 +81,20 @@ export const setUserId = (userId) =>
     ({type: SET_USER_ID, userId})
 export const setUserStatus = (status) =>
     ({type: SET_USER_STATUS, status})
+export const savePhotoSuccess = (photos) =>
+    ({type: SET_USER_PHOTO, photos})
 
 export const getUserStatus = (userId) => async (dispatch) => {
 
     let response = await profileAPI.getUsersStatus(userId)
     dispatch(setUserStatus(response))
+}
+export const savePhoto = (file) => async (dispatch) => {
+
+    let response = await profileAPI.savePhoto(file)
+    if (response.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.photos))
+    }
 }
 
 export const updateUserStatus = (status) => async (dispatch) => {

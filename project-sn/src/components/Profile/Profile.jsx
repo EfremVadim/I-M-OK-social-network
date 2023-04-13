@@ -7,10 +7,12 @@ const Profile = (props) => {
     return (
         <div className='app-wrapper-content'>
             <ProfileInfo status={props.status}
+                         isOwner={props.isOwner}
                          profile={props.profile}
                          fullName={props.fullName}
                          userId={props.userId}
                          updateUserStatus={props.updateUserStatus}
+                         savePhoto={props.savePhoto}
             />
             <MyPostsContainer/>
         </div>

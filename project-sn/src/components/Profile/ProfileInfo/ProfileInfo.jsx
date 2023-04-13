@@ -2,11 +2,18 @@ import React from 'react';
 import s from './ProfileInfo.module.css';
 import Preloader from "../../Common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
+import userPhoto from '../../../assets/images/user.png'
 
-const ProfileInfo = ({profile, fullName, userId, status, updateUserStatus}) => {
+const ProfileInfo = ({profile, fullName, userId, status, updateUserStatus, isOwner, savePhoto}) => {
 
     if (!profile || !fullName) {
         return <Preloader/>
+    }
+
+    const onChangeUserPhoto = (e) => {
+        if (e.target.files.length) {
+            savePhoto(e.target.files[0]);
+        }
     }
 
     return (
@@ -21,12 +28,8 @@ const ProfileInfo = ({profile, fullName, userId, status, updateUserStatus}) => {
                 ID {userId}
             </div>
             <div className={s.descriptionBlock}>
-                <img
-                    src="https://media.istockphoto.com/id/1348390608/vector/okey-gesture-and-red-eye-im-ok-slogan-vector-hand-drawn-doodle-cartoon-illustration-icon.jpg?s=612x612&w=0&k=20&c=mEFYJBcjNEjMmeS9zhHFk4BiiuuJwMcSWodet80XYg8="/>
-            </div>
-            <div className={s.descriptionBlock}>
-                <img src={profile.photos.large}/>
-
+                <img src={profile.photos.large || userPhoto}/>
+                {isOwner && <input type="file" onChange={onChangeUserPhoto}/>}
                 <ProfileStatusWithHooks status={status} updateUserStatus={updateUserStatus}/>
             </div>
         </div>

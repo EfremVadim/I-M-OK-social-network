@@ -1,20 +1,27 @@
 import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getUserProfile, getUserStatus, setFullName, setUserId, updateUserStatus} from "../../redux/profile-reducer";
+import {
+    getUserProfile,
+    getUserStatus,
+    savePhoto,
+    setFullName,
+    setUserId,
+    updateUserStatus
+} from "../../redux/profile-reducer";
 import {withAuthNavigate} from "../../HOC/withAuthNavigate";
 import {compose} from "redux";
 import {withRouter} from "../../HOC/withRouterComponent";
 
 class ProfileContainer extends React.Component {
 
-    componentDidMount() {
-
+    refreshProfile() {
         let userId = this.props.match.params.userId;
 
         if (!userId) {
             userId = this.props.authorizedUserId;
-        } if (!userId) {
+        }
+        if (!userId) {
             this.props.router.navigate('login')
         }
 
@@ -26,10 +33,20 @@ class ProfileContainer extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.refreshProfile();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile();
+        }
+    }
+
     render() {
 
         return (
-            <Profile {...this.props}/>
+            <Profile isOwner={!this.props.match.params.userId} {...this.props}/>
         )
     }
 }
@@ -45,17 +62,9 @@ const mapStateToProps = (state) => ({
 
 export default compose(
     connect(mapStateToProps, {
-        getUserProfile, setFullName, setUserId, getUserStatus, updateUserStatus
+        getUserProfile, setFullName, setUserId, getUserStatus, updateUserStatus, savePhoto
     }),
     withRouter,
     withAuthNavigate
 )
 (ProfileContainer)
-
-// let AuthNavigateComponent = withAuthNavigate(ProfileContainer);
-//
-// let WithUrlDataProfileComponent = withRouter(AuthNavigateComponent);
-//
-// connect(mapStateToProps, {
-//     getUserProfile, setFullName, setUserId,
-// })(withRouter(WithUrlDataProfileComponent))

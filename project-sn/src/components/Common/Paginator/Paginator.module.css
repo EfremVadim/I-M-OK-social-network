@@ -1,3 +1,7 @@
 .selectedPage {
     font-weight: bold;
 }
+
+.selectedItem {
+    cursor: pointer;
+}
