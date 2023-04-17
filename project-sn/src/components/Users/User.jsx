@@ -32,12 +32,10 @@ const User = ({user, followingInProgress, follow, unFollow}) => {
             <span>
                         <span>
                             <div>Name: {user.name}</div>
-                            <div>Status:...</div>
-                        </span>
-                        <span>
-                            <div>From:
-                                {' Country:... '} {'City:... '}
+                            <div>Status: {user.status ?
+                                <span>{user.status}</span> : '-'}
                             </div>
+
                         </span>
                     </span>
         </div>

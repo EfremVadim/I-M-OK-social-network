@@ -1,4 +1,5 @@
 import {profileAPI, usersAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const ADD_POST = 'ADD-POST';
 const DELETE_POST = 'DELETE_POST';
@@ -8,7 +9,7 @@ const SET_USER_ID = 'SET_USER_ID';
 const SET_USER_STATUS = 'SET_USER_STATUS';
 const SET_USER_PHOTO = 'SET_USER_PHOTO';
 
-let initialState = {
+const initialState = {
     posts: [
         {id: 1, message: 'Hello, how are you', likesCount: 333},
         {id: 2, message: 'It is my first post', likesCount: 777},
@@ -86,20 +87,35 @@ export const savePhotoSuccess = (photos) =>
 
 export const getUserStatus = (userId) => async (dispatch) => {
 
-    let response = await profileAPI.getUsersStatus(userId)
+    const response = await profileAPI.getUsersStatus(userId)
+
     dispatch(setUserStatus(response))
 }
 export const savePhoto = (file) => async (dispatch) => {
 
-    let response = await profileAPI.savePhoto(file)
+    const response = await profileAPI.savePhoto(file)
+
     if (response.resultCode === 0) {
-        dispatch(savePhotoSuccess(response.photos))
+        dispatch(savePhotoSuccess(response.data.photos))
+    }
+}
+
+export const saveProfile = (profile) => async (dispatch, getState) => {
+
+    const userId = getState().auth.userId
+    const response = await profileAPI.saveProfile(profile)
+
+    if (response.resultCode === 0) {
+        dispatch(getUserProfile(userId))
+    } else {
+        dispatch(stopSubmit('editProfile', {_error: response.data.messages[0]}))
     }
 }
 
 export const updateUserStatus = (status) => async (dispatch) => {
 
-    let response = await profileAPI.updateUsersStatus(status)
+    const response = await profileAPI.updateUsersStatus(status)
+
     if (response.resultCode === 0) {
         dispatch(setUserStatus(status))
     }
@@ -107,7 +123,8 @@ export const updateUserStatus = (status) => async (dispatch) => {
 
 export const getUserProfile = (userId) => async (dispatch) => {
 
-    let response = await usersAPI.getProfileData(userId)
+    const response = await usersAPI.getProfileData(userId)
+
     dispatch(setUserProfile(response))
     dispatch(setFullName(response.fullName))
     dispatch(setUserId(response.userId))
