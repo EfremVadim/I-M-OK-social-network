@@ -29,7 +29,6 @@ const ProfileInfo = ({profile, fullName, status, updateUserStatus, isOwner, save
                 setEditMode(false)
             }
         )
-
     }
 
     return (

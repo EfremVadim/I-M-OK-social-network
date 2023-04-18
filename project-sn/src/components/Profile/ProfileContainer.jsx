@@ -57,7 +57,8 @@ const mapStateToProps = (state) => ({
     userId: state.profilePage.userId,
     status: state.profilePage.status,
     authorizedUserId: state.auth.userId,
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+
 })
 
 export default compose(
