@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
@@ -13,42 +13,44 @@ import {withAuthNavigate} from "../../HOC/withAuthNavigate";
 import {compose} from "redux";
 import {withRouter} from "../../HOC/withRouterComponent";
 
-class ProfileContainer extends React.Component {
+const ProfileContainer = (props) => {
 
-    refreshProfile() {
-        let userId = this.props.match.params.userId;
+    let refreshProfile = () => {
+        let userId = props.match.params.userId;
 
         if (!userId) {
-            userId = this.props.authorizedUserId;
+            userId = props.authorizedUserId;
         }
+
         if (!userId) {
-            this.props.router.navigate('login')
+            props.router.navigate('login')
         }
 
-        this.props.getUserProfile(userId);
-        this.props.getUserStatus(userId);
+        props.getUserProfile(userId);
+        props.getUserStatus(userId);
 
-        if (!this.props.match.params.userId) {
-            return <Profile {...this.props}/>
-        }
-    }
-
-    componentDidMount() {
-        this.refreshProfile();
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.match.params.userId !== prevProps.match.params.userId) {
-            this.refreshProfile();
+        if (!props.match.params.userId) {
+            return <Profile {...props}/>
         }
     }
 
-    render() {
+    useEffect( () => {
+        refreshProfile()
+    },[props.match.params.userId]  )
+
+    // componentDidMount() {
+    //     refreshProfile();
+    // }
+
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     if (props.match.params.userId !== prevProps.match.params.userId) {
+    //         refreshProfile();
+    //     }
+    // }
 
         return (
-            <Profile isOwner={!this.props.match.params.userId} {...this.props}/>
+            <Profile isOwner={!props.match.params.userId} {...props}/>
         )
-    }
 }
 
 const mapStateToProps = (state) => ({
