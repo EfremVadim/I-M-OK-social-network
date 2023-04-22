@@ -1,27 +1,27 @@
 self.__precacheManifest = [
   {
-    "revision": "627dc15afcab4f37f199",
+    "revision": "45007d11cbfcdd528189",
     "url": "/I-M-OK-social-network/static/css/main.62cc0c69.chunk.css"
   },
   {
-    "revision": "627dc15afcab4f37f199",
-    "url": "/I-M-OK-social-network/static/js/main.79a4ee1c.chunk.js"
+    "revision": "45007d11cbfcdd528189",
+    "url": "/I-M-OK-social-network/static/js/main.4b37fd9b.chunk.js"
   },
   {
-    "revision": "3a40e8f60488f41e4430",
-    "url": "/I-M-OK-social-network/static/js/runtime~main.299c2f60.js"
+    "revision": "a84a92034a7c21b8e2d6",
+    "url": "/I-M-OK-social-network/static/js/runtime~main.26ac980a.js"
   },
   {
-    "revision": "a4414b8af3bdba08b47c",
-    "url": "/I-M-OK-social-network/static/js/2.5616d71f.chunk.js"
+    "revision": "17469b3e83be8420f9ed",
+    "url": "/I-M-OK-social-network/static/js/2.57fc224d.chunk.js"
   },
   {
-    "revision": "809bd05de826ac21cf90",
+    "revision": "50e885fc9a4057d8f7f2",
     "url": "/I-M-OK-social-network/static/css/3.2f8b341b.chunk.css"
   },
   {
-    "revision": "809bd05de826ac21cf90",
-    "url": "/I-M-OK-social-network/static/js/3.c47345ef.chunk.js"
+    "revision": "50e885fc9a4057d8f7f2",
+    "url": "/I-M-OK-social-network/static/js/3.a8e7b9a1.chunk.js"
   },
   {
     "revision": "870c844326d42836100d",
@@ -48,7 +48,7 @@ self.__precacheManifest = [
     "url": "/I-M-OK-social-network/static/media/headerIcon.c0661435.jpg"
   },
   {
-    "revision": "27379e7be6a7db239ca5d41101d8b2d5",
+    "revision": "b27307e21f8c73411360a96202817d28",
     "url": "/I-M-OK-social-network/index.html"
   }
 ];
