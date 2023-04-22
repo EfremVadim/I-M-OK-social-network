@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "bf552a625e09222d0610",
+    "revision": "f3c6ca174fd88ed4e18b",
     "url": "/I-M-OK-social-network/static/css/main.62cc0c69.chunk.css"
   },
   {
-    "revision": "bf552a625e09222d0610",
-    "url": "/I-M-OK-social-network/static/js/main.4f19bd8d.chunk.js"
+    "revision": "f3c6ca174fd88ed4e18b",
+    "url": "/I-M-OK-social-network/static/js/main.09c14ae5.chunk.js"
   },
   {
     "revision": "3a40e8f60488f41e4430",
@@ -48,7 +48,7 @@ self.__precacheManifest = [
     "url": "/I-M-OK-social-network/static/media/headerIcon.c0661435.jpg"
   },
   {
-    "revision": "4dbc8e4384d669eea9b57bc99955a15a",
+    "revision": "6d7f796de1795ad88fec0a093f2b1282",
     "url": "/I-M-OK-social-network/index.html"
   }
 ];
