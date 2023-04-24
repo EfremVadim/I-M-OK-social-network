@@ -53,8 +53,8 @@ const App = (props) => {
                         <Route path='/music' element={<MusicContainer/>}/>
                         <Route path='/users/*' element={<UsersContainer/>}/>
                         <Route path='/login' element={<Login/>}/>
-                        <Route path='*' element={<div>404 NOT FOUND</div>}/>
                         <Route path='/' element={<Navigate to={'/profile'}/>}/>
+                        <Route path='*' element={<div>Hey, buddy, nice to meet you!</div>}/>
                     </Routes>
                 </React.Suspense>
             </div>
