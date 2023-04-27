@@ -1,14 +1,14 @@
-import React from 'react';
-
-const PLAY = 'PLAY';
-const PAUSE = 'PAUSE';
-const SET_ALBUM = 'SET_ALBUM';
+const PLAY = 'PLAY'
+const PAUSE = 'PAUSE'
+const SET_ALBUM = 'SET_ALBUM'
 
 let initialState = {
-    albums: []
+    albums: [] as Array<any>
 }
 
-const musicReducer = (state = initialState, action) => {
+type InitialStateType = typeof initialState
+
+const musicReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case PLAY:
             return {
@@ -39,10 +39,20 @@ const musicReducer = (state = initialState, action) => {
     }
 }
 
-//action creators
-export const playAC = (albumId) => ({type: PLAY, albumId});
-export const pauseAC = (albumId) => ({type: PAUSE, albumId});
-export const setAlbumAC = (albums) => ({type: SET_ALBUM, albums})
-
+type PlayACType = {
+    type: typeof PLAY
+    albumId: number
+}
+export const playAC = (albumId: number): PlayACType => ({type: PLAY, albumId});
+type PauseACType = {
+    type: typeof PAUSE
+    albumId: number
+}
+export const pauseAC = (albumId: number): PauseACType => ({type: PAUSE, albumId});
+type SetAlbumACType = {
+    type: typeof SET_ALBUM
+    albums: any
+}
+export const setAlbumAC = (albums: any): SetAlbumACType => ({type: SET_ALBUM, albums})
 
 export default musicReducer;

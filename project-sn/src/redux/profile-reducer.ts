@@ -98,8 +98,8 @@ type SetFullNameType = {
     fullName: string
 }
 export const setFullName = (fullName: string): SetFullNameType => ({
-        type: SET_FULL_NAME, fullName
-    })
+    type: SET_FULL_NAME, fullName
+})
 type SetUserIdType = {
     type: typeof SET_USER_ID
     userId: number
