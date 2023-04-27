@@ -1,17 +1,26 @@
 import React from 'react';
 import styles from './Paginator.module.css';
 
-const Paginator = ({onPageChanged, currentPage, totalUsersCount, pageSize}) => {
+type PropsType = {
+    onPageChanged: (pageNumber: number) => void
+    currentPage: number
+    totalUsersCount: number
+    pageSize: number
+}
+
+const Paginator: React.FC<PropsType> = (
+    {onPageChanged, currentPage, totalUsersCount, pageSize}) => {
 
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
+    let pages: Array<number> = [];
 
-    let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
 
     let slicedPages;
     let curPage = currentPage;
+
     if (curPage - 3 < 0) {
         slicedPages = pages.slice(0, 5);
     } else {
@@ -20,12 +29,12 @@ const Paginator = ({onPageChanged, currentPage, totalUsersCount, pageSize}) => {
 
     return (
         <div className={styles.selectedItem}>
-            {slicedPages.map(p => {
+            {slicedPages.map(page => {
                 return (<span
-                    className={currentPage === p ? styles.selectedPage : undefined}
+                    className={currentPage === page ? styles.selectedPage : undefined}
                     onClick={(e) => {
-                        onPageChanged(p)
-                    }}> {p}</span>)
+                        onPageChanged(page)
+                    }}> {page}</span>)
             })}
         </div>
     )
