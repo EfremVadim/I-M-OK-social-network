@@ -1,5 +1,5 @@
 import axios from "axios"
-import {ProfileType} from "../types/types";
+import {ProfileType} from "../types/types"
 
 //@ts-ignore
 const instance = axios.create({
@@ -13,6 +13,9 @@ const instance = axios.create({
 export enum ResultCodesEnum {
     Success = 0,
     Error = 1,
+    Captcha = 10
+}
+export enum ResultCodesEnumForCaptcha {
     Captcha = 10
 }
 
@@ -88,12 +91,12 @@ export const profileAPI = {
 
 type SetMeType = {
     data: {id: number, email: string, login: string}
-    resultCode: number
+    resultCode: ResultCodesEnum | ResultCodesEnumForCaptcha
     messages: Array<string>
 }
 type LoginType = {
     data: {userId: number}
-    resultCode: number
+    resultCode: ResultCodesEnum | ResultCodesEnumForCaptcha
     messages: Array<string>
 }
 
