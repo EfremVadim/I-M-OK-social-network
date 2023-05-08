@@ -24,7 +24,7 @@ const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
 
     const deactivateEditMode = () => {
         setEditMode(false)
-        props.updateUserStatus(status);
+        props.updateUserStatus(status)
     }
 
     return (
@@ -40,6 +40,6 @@ const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
                 </div>
             }
         </div>
-    );
+    )
 }
 export default ProfileStatusWithHooks;

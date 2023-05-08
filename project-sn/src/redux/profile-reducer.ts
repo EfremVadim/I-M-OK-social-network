@@ -74,58 +74,30 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
     }
 }
 
-type ActionsTypes = AddPostActionCreatorType | DeletePostActionType | SetUserProfileType | SetFullNameType |
-    SetUserIdType | SetUserStatusType | SavePhotoSuccessType
+type ActionsTypes = any
 
-type AddPostActionCreatorType = {
-    type: typeof ADD_POST
-    newPostText: string
-}
-export const addPostActionCreator = (newPostText: string): AddPostActionCreatorType => ({
-    type: ADD_POST, newPostText
-})
-type DeletePostActionType = {
-    type: typeof DELETE_POST
-    postId: number
-}
-export const deletePost = (postId: number): DeletePostActionType => ({
-    type: DELETE_POST, postId
-})
-type SetUserProfileType = {
-    type: typeof SET_USER_PROFILE
-    profile: ProfileType
-}
-export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({
-    type: SET_USER_PROFILE, profile
-})
-type SetFullNameType = {
-    type: typeof SET_FULL_NAME
-    fullName: string
-}
-export const setFullName = (fullName: string): SetFullNameType => ({
-    type: SET_FULL_NAME, fullName
-})
-type SetUserIdType = {
-    type: typeof SET_USER_ID
-    userId: number
-}
-export const setUserId = (userId: number): SetUserIdType => ({
-    type: SET_USER_ID, userId
-})
-type SetUserStatusType = {
-    type: typeof SET_USER_STATUS
-    status: string
-}
-export const setUserStatus = (status: string): SetUserStatusType => ({
-    type: SET_USER_STATUS, status
-})
-type SavePhotoSuccessType = {
-    type: typeof SET_USER_PHOTO
-    photos: PhotosType
-}
-export const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccessType => ({
-    type: SET_USER_PHOTO, photos
-})
+
+    export const addPostActionCreator = (newPostText: string) => ({
+        type: ADD_POST, newPostText
+    })
+    export const deletePost = (postId: number) => ({
+        type: DELETE_POST, postId
+    })
+    export const setUserProfile = (profile: ProfileType) => ({
+        type: SET_USER_PROFILE, profile
+    })
+    export const setFullName = (fullName: string) => ({
+        type: SET_FULL_NAME, fullName
+    })
+    export const setUserId = (userId: number) => ({
+        type: SET_USER_ID, userId
+    })
+    export const setUserStatus = (status: string) => ({
+        type: SET_USER_STATUS, status
+    })
+    export const savePhotoSuccess = (photos: PhotosType) => ({
+        type: SET_USER_PHOTO, photos
+    })
 
 type DispatchType = Dispatch<ActionsTypes>
 type GetStateType = () => AppStateType
