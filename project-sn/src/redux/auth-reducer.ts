@@ -1,5 +1,7 @@
-import {authAPI, ResultCodesEnum, ResultCodesEnumForCaptcha, securityAPI} from "../api/api"
+import {ResultCodesEnum, ResultCodesForCaptchaEnum} from "../api/api"
 import {stopSubmit} from "redux-form"
+import {authAPI} from "../api/authAPI";
+import {securityAPI} from "../api/securityAPI";
 
 const SET_USER_DATA = 'i-am-ok-network/auth/SET_USER_DATA'
 const GET_CAPTCHA_URL_SUCCESS = 'i-am-ok-network/auth/SET_CAPTCHA_SUCCESS'
@@ -71,7 +73,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
             dispatch(getCaptchaUrl())
 
         } else {
-            if (loginData.resultCode === ResultCodesEnumForCaptcha.Captcha) {
+            if (loginData.resultCode === ResultCodesForCaptchaEnum.Captcha) {
                 dispatch(getCaptchaUrl())
             }
             let message = loginData.messages.length > 0 ? loginData.messages[0] : 'Some Error'

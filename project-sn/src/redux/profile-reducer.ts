@@ -1,9 +1,10 @@
-import {PhotosType, PostsType, ProfileType} from "../types/types";
-import {profileAPI, ResultCodesEnum, usersAPI} from "../api/api"
+import {PhotosType, PostsType, ProfileType} from "../types/types"
+import {ResultCodesEnum} from "../api/api"
 import {stopSubmit} from "redux-form"
-import {Dispatch} from "redux";
-import {AppStateType} from "./redux-store";
-import {ThunkAction} from "redux-thunk";
+import {Dispatch} from "redux"
+import {AppStateType} from "./redux-store"
+import {ThunkAction} from "redux-thunk"
+import {profileAPI} from "../api/profileAPI"
 
 const ADD_POST = 'ADD-POST'
 const SET_USER_ID = 'SET_USER_ID'
@@ -76,7 +77,6 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
 
 type ActionsTypes = any
 
-
     export const addPostActionCreator = (newPostText: string) => ({
         type: ADD_POST, newPostText
     })
@@ -114,23 +114,21 @@ export const savePhoto = (file: any): ThunkType =>
     async (dispatch) => {
         const response: any = await profileAPI.savePhoto(file)
 
-        if (response.data.resultCode === ResultCodesEnum.Success) {
-            dispatch(savePhotoSuccess(response.data.data.photos))
+        if (response.resultCode === ResultCodesEnum.Success) {
+            dispatch(savePhotoSuccess(response.data.photos))
         }
     }
 
 export const saveProfile = (profile: ProfileType) =>
     async (dispatch: DispatchType, getState: GetStateType) => {
-        const userId: number | null = getState().auth.userId
-        const response: any = await profileAPI.saveProfile(profile)
+        const userId = getState().auth.userId
+        const response = await profileAPI.saveProfile(profile)
 
-        if (response.data.resultCode === ResultCodesEnum.Success) {
-            //@ts-ignore
+        if (response.resultCode === ResultCodesEnum.Success) {
             dispatch(getUserProfile(userId))
 
         } else {
-            let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error'
-            //@ts-ignore
+            let message = response.messages.length > 0 ? response.messages[0] : 'Some Error'
             dispatch(stopSubmit('editProfile', {_error: message}))
             return Promise.reject(message)
         }
@@ -140,13 +138,13 @@ export const updateUserStatus = (status: string): ThunkType =>
     async (dispatch) => {
         const response = await profileAPI.updateUsersStatus(status)
 
-        if (response.data.resultCode === ResultCodesEnum.Success) {
+        if (response.resultCode === ResultCodesEnum.Success) {
             dispatch(setUserStatus(status))
         }
     }
 
 export const getUserProfile = (userId: number | null): ThunkType => async (dispatch) => {
-    const response = await usersAPI.getProfileData(userId)
+    const response = await profileAPI.getProfileData(userId)
 
     dispatch(setUserProfile(response))
     dispatch(setFullName(response.fullName))

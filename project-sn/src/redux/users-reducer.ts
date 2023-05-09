@@ -1,9 +1,10 @@
 import {updateObjectInArray} from "../utilities/object-helpers"
 import {UsersType} from "../types/types"
-import {ResultCodesEnum, usersAPI} from "../api/api"
+import {ResultCodesEnum} from "../api/api"
 import {AppStateType, InferActionsTypes} from "./redux-store";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
+import {usersAPI} from "../api/usersAPI";
 
 let initialState = {
     users: [] as Array<UsersType>,
