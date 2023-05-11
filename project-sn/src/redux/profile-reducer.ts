@@ -2,17 +2,9 @@ import {PhotosType, PostsType, ProfileType} from "../types/types"
 import {ResultCodesEnum} from "../api/api"
 import {stopSubmit} from "redux-form"
 import {Dispatch} from "redux"
-import {AppStateType} from "./redux-store"
+import {AppStateType, BaseThunkType, InferActionsTypes} from "./redux-store"
 import {ThunkAction} from "redux-thunk"
 import {profileAPI} from "../api/profileAPI"
-
-const ADD_POST = 'ADD-POST'
-const SET_USER_ID = 'SET_USER_ID'
-const DELETE_POST = 'DELETE_POST'
-const SET_FULL_NAME = 'SET_FULL_NAME'
-const SET_USER_PHOTO = 'SET_USER_PHOTO'
-const SET_USER_STATUS = 'SET_USER_STATUS'
-const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
 const initialState = {
     posts: [
@@ -25,12 +17,10 @@ const initialState = {
     status: ''
 }
 
-export type InitialStateType = typeof initialState
-
 const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
     switch (action.type) {
-        case ADD_POST:
+        case 'SN/PROFILE/ADD-POST':
             let newPost = {
                 id: 3,
                 message: action.newPostText,
@@ -40,32 +30,32 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
                 ...state,
                 posts: [...state.posts, newPost],
             }
-        case DELETE_POST:
+        case 'SN/PROFILE/DELETE_POST':
             return {
                 ...state,
                 posts: state.posts.filter(p => p.id !== action.postId)
             }
-        case SET_USER_PROFILE:
+        case 'SN/PROFILE/SET_USER_PROFILE':
             return {
                 ...state,
                 profile: action.profile
             }
-        case SET_FULL_NAME:
+        case 'SN/PROFILE/SET_FULL_NAME':
             return {
                 ...state,
                 fullName: action.fullName
             }
-        case SET_USER_ID:
+        case 'SN/PROFILE/SET_USER_ID':
             return {
                 ...state,
                 userId: action.userId
             }
-        case SET_USER_STATUS:
+        case 'SN/PROFILE/SET_USER_STATUS':
             return {
                 ...state,
                 status: action.status
             }
-        case SET_USER_PHOTO:
+        case 'SN/PROFILE/SET_USER_PHOTO':
             return {
                 ...state,
                 profile: {...state.profile, photos: action.photos} as ProfileType
@@ -75,52 +65,51 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
     }
 }
 
-type ActionsTypes = any
-
-    export const addPostActionCreator = (newPostText: string) => ({
-        type: ADD_POST, newPostText
-    })
-    export const deletePost = (postId: number) => ({
-        type: DELETE_POST, postId
-    })
-    export const setUserProfile = (profile: ProfileType) => ({
-        type: SET_USER_PROFILE, profile
-    })
-    export const setFullName = (fullName: string) => ({
-        type: SET_FULL_NAME, fullName
-    })
-    export const setUserId = (userId: number) => ({
-        type: SET_USER_ID, userId
-    })
-    export const setUserStatus = (status: string) => ({
-        type: SET_USER_STATUS, status
-    })
-    export const savePhotoSuccess = (photos: PhotosType) => ({
-        type: SET_USER_PHOTO, photos
-    })
-
-type DispatchType = Dispatch<ActionsTypes>
-type GetStateType = () => AppStateType
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+export const actions = {
+    addPostActionCreator: (newPostText: string) => ({
+        type: 'SN/PROFILE/ADD-POST', newPostText
+    } as const),
+    deletePost: (postId: number) => ({
+        type: 'SN/PROFILE/DELETE_POST', postId
+    } as const),
+    setUserProfile: (profile: ProfileType) => ({
+        type: 'SN/PROFILE/SET_USER_PROFILE', profile
+    } as const),
+    setFullName: (fullName: string) => ({
+        type: 'SN/PROFILE/SET_FULL_NAME', fullName
+    } as const),
+    setUserId: (userId: number) => ({
+        type: 'SN/PROFILE/SET_USER_ID', userId
+    } as const),
+    setUserStatus: (status: string) => ({
+        type: 'SN/PROFILE/SET_USER_STATUS', status
+    } as const),
+    savePhotoSuccess: (photos: PhotosType) => ({
+        type: 'SN/PROFILE/SET_USER_PHOTO', photos
+    } as const )
+}
 
 export const getUserStatus = (userId: number): ThunkType =>
     async (dispatch) => {
+
         const data = await profileAPI.getUsersStatus(userId)
 
-        dispatch(setUserStatus(data))
+        dispatch(actions.setUserStatus(data))
     }
 
 export const savePhoto = (file: any): ThunkType =>
     async (dispatch) => {
+
         const response: any = await profileAPI.savePhoto(file)
 
         if (response.resultCode === ResultCodesEnum.Success) {
-            dispatch(savePhotoSuccess(response.data.photos))
+            dispatch(actions.savePhotoSuccess(response.data.photos))
         }
     }
 
-export const saveProfile = (profile: ProfileType) =>
-    async (dispatch: DispatchType, getState: GetStateType) => {
+export const saveProfile = (profile: ProfileType): ThunkType =>
+    async (dispatch, getState) => {
+
         const userId = getState().auth.userId
         const response = await profileAPI.saveProfile(profile)
 
@@ -136,19 +125,26 @@ export const saveProfile = (profile: ProfileType) =>
 
 export const updateUserStatus = (status: string): ThunkType =>
     async (dispatch) => {
+
         const response = await profileAPI.updateUsersStatus(status)
 
         if (response.resultCode === ResultCodesEnum.Success) {
-            dispatch(setUserStatus(status))
+            dispatch(actions.setUserStatus(status))
         }
     }
 
-export const getUserProfile = (userId: number | null): ThunkType => async (dispatch) => {
-    const response = await profileAPI.getProfileData(userId)
+export const getUserProfile = (userId: number | null): ThunkType =>
+    async (dispatch) => {
 
-    dispatch(setUserProfile(response))
-    dispatch(setFullName(response.fullName))
-    dispatch(setUserId(response.userId))
-}
+        const response = await profileAPI.getProfileData(userId)
+
+        dispatch(actions.setUserProfile(response))
+        dispatch(actions.setFullName(response.fullName))
+        dispatch(actions.setUserId(response.userId))
+    }
 
 export default profileReducer
+
+export type InitialStateType = typeof initialState
+type ActionsTypes = any //InferActionsTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsTypes>

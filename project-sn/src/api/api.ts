@@ -1,5 +1,5 @@
+import {UsersType} from "../types/types"
 import axios from "axios"
-import {UsersType} from "../types/types";
 
 //@ts-ignore
 export const instance = axios.create({
@@ -18,8 +18,7 @@ export type GetItemsType = {
 
 export enum ResultCodesEnum {
     Success = 0,
-    Error = 1,
-    Captcha = 10
+    Error = 1
 }
 export enum ResultCodesForCaptchaEnum {
     Captcha = 10

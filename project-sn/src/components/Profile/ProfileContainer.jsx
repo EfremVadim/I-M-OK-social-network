@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
+    actions,
     getUserProfile,
     getUserStatus,
     savePhoto, saveProfile,
@@ -63,9 +64,12 @@ const mapStateToProps = (state) => ({
 
 })
 
+let SetFullName = actions.setFullName
+let SetUserId = actions.setUserId
+
 export default compose(
     connect(mapStateToProps, {
-        getUserProfile, setFullName, setUserId, getUserStatus, updateUserStatus, savePhoto, saveProfile
+        getUserProfile, SetFullName, SetUserId, getUserStatus, updateUserStatus, savePhoto, saveProfile
     }),
     withRouter,
     withAuthNavigate

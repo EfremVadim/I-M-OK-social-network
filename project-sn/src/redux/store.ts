@@ -5,36 +5,7 @@
 // import sidebarReducer from "./sidebar-reducer"
 // import {PostsType} from "../types/types"
 //
-// type ProfilePageType = {
-//     posts: PostsType
-//     newPostText: string
-// }
-// type DialogsType = {
-//     id: number
-//     name: string
-// }
-// type DialogsPageType = {
-//     dialogs: DialogsType
-//     messages: MessagesType
-//     newMessageText: string
-// }
-// type MessagesType = {
-//     id: number
-//     message: string
-// }
-// type StateType = {
-//     profilePage: ProfilePageType
-//     dialogsPage: DialogsPageType
-//     sidebar: any
-// }
-// type StoreType = {
-//     _callSubscriber: () => void
-//     getState: () => void
-//     subscribe: (observer: any) => void
-//     dispatch: (action: any) => void
-// }
-//
-// let store: StoreType = {
+// let store = {
 //     _state: {
 //         profilePage: {
 //             posts: [
@@ -73,10 +44,10 @@
 //     getState() {
 //         return this._state
 //     },
-//     subscribe(observer: any) {
+//     subscribe(observer) {
 //         this._callSubscriber = observer
 //     },
-//     dispatch(action: any) {
+//     dispatch(action) {
 //         this._state.profilePage = profileReducer(this._state.profilePage, action)
 //         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
 //         this._state.sidebar = sidebarReducer(this._state.sidebar, action)

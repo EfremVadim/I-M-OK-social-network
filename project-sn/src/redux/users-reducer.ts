@@ -1,10 +1,9 @@
 import {updateObjectInArray} from "../utilities/object-helpers"
 import {UsersType} from "../types/types"
 import {ResultCodesEnum} from "../api/api"
-import {AppStateType, InferActionsTypes} from "./redux-store";
-import {Dispatch} from "redux";
-import {ThunkAction} from "redux-thunk";
-import {usersAPI} from "../api/usersAPI";
+import {AppStateType, InferActionsTypes, BaseThunkType} from "./redux-store"
+import {Dispatch} from "redux"
+import {usersAPI} from "../api/usersAPI"
 
 let initialState = {
     users: [] as Array<UsersType>,
@@ -101,7 +100,7 @@ export const actions = {
 
 type DispatchType = Dispatch<ActionsTypes>
 type GetStateType = () => AppStateType
-type ThunkType = ThunkAction<Promise<void>, GetStateType, unknown, ActionsTypes>
+type ThunkType = BaseThunkType<ActionsTypes>
 
 export const requestUsers = (page: number, pageSize: number): ThunkType =>
     async (dispatch, getState) => {
