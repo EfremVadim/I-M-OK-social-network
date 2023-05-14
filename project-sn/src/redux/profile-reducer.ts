@@ -1,6 +1,6 @@
 import {PhotosType, PostsType, ProfileType} from "../types/types"
 import {ResultCodesEnum} from "../api/api"
-import {stopSubmit} from "redux-form"
+import {FormAction, stopSubmit} from "redux-form"
 import {Dispatch} from "redux"
 import {AppStateType, BaseThunkType, InferActionsTypes} from "./redux-store"
 import {ThunkAction} from "redux-thunk"
@@ -97,10 +97,10 @@ export const getUserStatus = (userId: number): ThunkType =>
         dispatch(actions.setUserStatus(data))
     }
 
-export const savePhoto = (file: any): ThunkType =>
+export const savePhoto = (file: File): ThunkType =>
     async (dispatch) => {
 
-        const response: any = await profileAPI.savePhoto(file)
+        const response = await profileAPI.savePhoto(file)
 
         if (response.resultCode === ResultCodesEnum.Success) {
             dispatch(actions.savePhotoSuccess(response.data.photos))
@@ -114,8 +114,11 @@ export const saveProfile = (profile: ProfileType): ThunkType =>
         const response = await profileAPI.saveProfile(profile)
 
         if (response.resultCode === ResultCodesEnum.Success) {
-            dispatch(getUserProfile(userId))
-
+            if (userId != null) {
+                dispatch(getUserProfile(userId))
+            } else {
+                throw new Error("User ID can't be null")
+            }
         } else {
             let message = response.messages.length > 0 ? response.messages[0] : 'Some Error'
             dispatch(stopSubmit('editProfile', {_error: message}))
@@ -146,5 +149,5 @@ export const getUserProfile = (userId: number | null): ThunkType =>
 export default profileReducer
 
 export type InitialStateType = typeof initialState
-type ActionsTypes = any //InferActionsTypes<typeof actions>
-type ThunkType = BaseThunkType<ActionsTypes>
+type ActionsTypes = InferActionsTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsTypes | FormAction>

@@ -5,9 +5,6 @@ const initialState = {
     initialized: false,
 }
 
-type InitialStateType = typeof initialState
-type ActionsType = InferActionsTypes<typeof actions>
-
 const appReducer = (state = initialState, action: ActionsType): InitialStateType => {
 
     switch (action.type) {
@@ -35,3 +32,7 @@ export const initializeApp = () => (dispatch: any) => {
 }
 
 export default appReducer
+
+
+type InitialStateType = typeof initialState
+type ActionsType = InferActionsTypes<typeof actions>

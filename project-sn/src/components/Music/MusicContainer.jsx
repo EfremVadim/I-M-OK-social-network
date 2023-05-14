@@ -1,27 +1,18 @@
-import React from 'react';
-import {connect} from "react-redux";
-import Music from "./Music";
-import {pauseAC, playAC, setAlbumAC} from "../../redux/music-reducer";
+import React from 'react'
+import {connect} from "react-redux"
+import Music from "./Music"
+import {actions} from "../../redux/music-reducer"
 
 const mapStateToProps = (state) => {
     return {
         albums: state.musicPage.albums
     }
 }
-const mapDispatchToProps = (dispatch) => {
-    return {
-        play: (albumId) => {
-            dispatch(playAC(albumId))
-        },
-        pause: (albumId) => {
-            dispatch(pauseAC(albumId))
-        },
-        setAlbums: (albums) => {
-            dispatch(setAlbumAC(albums))
-        }
-    }
-}
 
-const MusicContainer = connect(mapStateToProps, mapDispatchToProps)(Music);
+let play = actions.play
+let pause = actions.pause
+let setAlbum = actions.setAlbum
 
-export default MusicContainer;
+const MusicContainer = connect(mapStateToProps, {play, pause, setAlbum})(Music)
+
+export default MusicContainer

@@ -1,16 +1,12 @@
-const PLAY = 'PLAY'
-const PAUSE = 'PAUSE'
-const SET_ALBUM = 'SET_ALBUM'
+import {InferActionsTypes} from "./redux-store"
 
 let initialState = {
     albums: [] as Array<any>
 }
 
-type InitialStateType = typeof initialState
-
-const musicReducer = (state = initialState, action: any): InitialStateType => {
+const musicReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case PLAY:
+        case 'PLAY':
             return {
                 ...state,
                 albums: state.albums.map(a => {
@@ -20,7 +16,7 @@ const musicReducer = (state = initialState, action: any): InitialStateType => {
                     return a;
                 })
             }
-        case PAUSE:
+        case 'PAUSE':
             return {
                 ...state,
                 albums: state.albums.map(a => {
@@ -30,7 +26,7 @@ const musicReducer = (state = initialState, action: any): InitialStateType => {
                     return a;
                 })
             }
-        case SET_ALBUM:
+        case 'SET_ALBUM':
             return {
                 ...state, albums: [...state.albums, ...action.albums]
             }
@@ -39,20 +35,14 @@ const musicReducer = (state = initialState, action: any): InitialStateType => {
     }
 }
 
-type PlayACType = {
-    type: typeof PLAY
-    albumId: number
-}
-export const playAC = (albumId: number): PlayACType => ({type: PLAY, albumId});
-type PauseACType = {
-    type: typeof PAUSE
-    albumId: number
-}
-export const pauseAC = (albumId: number): PauseACType => ({type: PAUSE, albumId});
-type SetAlbumACType = {
-    type: typeof SET_ALBUM
-    albums: any
-}
-export const setAlbumAC = (albums: any): SetAlbumACType => ({type: SET_ALBUM, albums})
+export const actions = {
+ play: (albumId: number) => ({type: 'PLAY', albumId} as const),
+ pause: (albumId: number) => ({type: 'PAUSE', albumId} as const),
+ setAlbum: (albums: any) => ({type: 'SET_ALBUM', albums} as const)
 
-export default musicReducer;
+}
+
+export default musicReducer
+
+type ActionsType = InferActionsTypes<typeof actions>
+type InitialStateType = typeof initialState
