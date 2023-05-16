@@ -14,8 +14,6 @@ let initialState = {
     followingInProgress: [] as Array<number> // array with users id's
 }
 
-type InitialStateType = typeof initialState
-
 const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
     switch (action.type) {
@@ -138,6 +136,7 @@ export const unFollow = (userId: number): ThunkType =>
 
 export default usersReducer
 
+type InitialStateType = typeof initialState
 type ActionsTypes = InferActionsTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionsTypes>
 
