@@ -1,16 +1,12 @@
 import React from 'react'
-import {InjectedFormProps, reduxForm} from "redux-form";
-import {createField, Input } from "../Common/FormsControls/FormsControls";
-import {required} from "../../utilities/validators/Validators";
-import {connect} from "react-redux";
-import {login} from "../../redux/auth-reducer";
-import {Navigate} from "react-router-dom";
+import {InjectedFormProps, reduxForm} from "redux-form"
+import {createField, Input } from "../Common/FormsControls/FormsControls"
+import {required} from "../../utilities/validators/Validators"
+import {connect} from "react-redux"
+import {login} from "../../redux/auth-reducer"
+import {Navigate} from "react-router-dom"
 import style from '../Common/FormsControls/FormsControls.module.css'
-import {AppStateType} from "../../redux/redux-store";
-
-type LoginFormOwnPropsType = {
-    captchaUrl: string | null
-}
+import {AppStateType} from "../../redux/redux-store"
 
 const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPropsType> & LoginFormOwnPropsType> =
     ({handleSubmit, error, captchaUrl}) => {
@@ -39,21 +35,6 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPro
 
 const LoginReduxForm = reduxForm<LoginFormValuesType, LoginFormOwnPropsType>({form: 'login'})(LoginForm)
 
-type MapStatePropsType = {
-    isAuth: boolean
-    captchaUrl: string | null
-}
-type MapDispatchPropsType = {
-    login: (email: string, password: string, rememberMe: boolean, captcha: any) => void
-}
-type LoginFormValuesType = {
-    email: string
-    password: string
-    rememberMe: boolean
-    captcha: any
-}
-type LoginFormValuesTypeKeys = Extract<keyof LoginFormValuesType, string>
-
 const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
 
     const onSubmit = (formData: LoginFormValuesType) => {
@@ -77,4 +58,22 @@ const mapStateToProps = (state: AppStateType) => ({
     captchaUrl: state.auth.captchaUrl
 })
 
-export default connect(mapStateToProps, {login})(Login);
+type LoginFormOwnPropsType = {
+    captchaUrl: string | null
+}
+type MapStatePropsType = {
+    isAuth: boolean
+    captchaUrl: string | null
+}
+type MapDispatchPropsType = {
+    login: (email: string, password: string, rememberMe: boolean, captcha: any) => void
+}
+type LoginFormValuesType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: any
+}
+type LoginFormValuesTypeKeys = Extract<keyof LoginFormValuesType, string>
+
+export default connect(mapStateToProps, {login})(Login)

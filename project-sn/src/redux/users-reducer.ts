@@ -15,7 +15,7 @@ let initialState = {
 }
 
 const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
-
+ 
     switch (action.type) {
         case "SN/USERS/FOLLOW":
             return {
