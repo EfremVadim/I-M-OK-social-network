@@ -1,17 +1,17 @@
-import React, {useEffect} from "react";
-import {connect} from "react-redux";
-import Users from "./Users";
-import Preloader from "../Common/Preloader/Preloader";
-import {follow, unFollow, requestUsers} from "../../redux/users-reducer";
-import {withAuthNavigate} from "../../HOC/withAuthNavigate";
-import {compose} from "redux";
+import React, {useEffect} from "react"
+import {connect} from "react-redux"
+import Users from "./Users"
+import Preloader from "../Common/Preloader/Preloader"
+import {follow, unFollow, requestUsers} from "../../redux/users-reducer"
+import {withAuthNavigate} from "../../HOC/withAuthNavigate"
+import {compose} from "redux"
 import {
     getCurrentPage, getFollowingInProgress,
     getIsFetching, getPageSize, getStatus,
     getTotalUsersCount, getUsers
-} from "../../redux/users-selectors";
-import {UsersType} from "../../types/types";
-import {AppStateType} from "../../redux/redux-store";
+} from "../../redux/users-selectors"
+import {UsersType} from "../../types/types"
+import {AppStateType} from "../../redux/redux-store"
 
 type MapStatePropsType = {
     currentPage: number
@@ -77,7 +77,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
-export default compose<PropsType>(
+export default compose<React.ComponentType>(
     connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
         follow, unFollow, getUsers: requestUsers
     }),

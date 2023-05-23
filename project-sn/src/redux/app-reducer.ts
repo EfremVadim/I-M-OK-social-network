@@ -33,6 +33,5 @@ export const initializeApp = () => (dispatch: any) => {
 
 export default appReducer
 
-
 type InitialStateType = typeof initialState
 type ActionsType = InferActionsTypes<typeof actions>

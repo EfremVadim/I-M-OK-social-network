@@ -6,15 +6,14 @@ import {
     getUserProfile,
     getUserStatus,
     savePhoto, saveProfile,
-    setFullName,
-    setUserId,
     updateUserStatus
 } from "../../redux/profile-reducer";
 import {withAuthNavigate} from "../../HOC/withAuthNavigate";
 import {compose} from "redux";
 import {withRouter} from "../../HOC/withRouterComponent";
+import {AppStateType} from "../../redux/redux-store";
 
-const ProfileContainer = (props) => {
+const ProfileContainer: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
 
     let refreshProfile = () => {
         let userId = props.match.params.userId;
@@ -54,7 +53,7 @@ const ProfileContainer = (props) => {
         )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
     profile: state.profilePage.profile,
     fullName: state.profilePage.fullName,
     userId: state.profilePage.userId,
@@ -64,14 +63,21 @@ const mapStateToProps = (state) => ({
 
 })
 
-let SetFullName = actions.setFullName
-let SetUserId = actions.setUserId
-
-export default compose(
+export default compose<React.ComponentType>(
     connect(mapStateToProps, {
-        getUserProfile, SetFullName, SetUserId, getUserStatus, updateUserStatus, savePhoto, saveProfile
+        getUserProfile, setFullName: actions.setFullName,
+        setUserId: actions.setUserId, getUserStatus,
+        updateUserStatus, savePhoto, saveProfile
     }),
     withRouter,
     withAuthNavigate
 )
 (ProfileContainer)
+
+type MapStatePropsType = ReturnType<typeof mapStateToProps>
+type MapDispatchPropsType = {
+    match: any
+    router: any
+    getUserProfile: (userId: number) => void
+    getUserStatus: (userId: number) => void
+}
