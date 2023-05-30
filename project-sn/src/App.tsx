@@ -28,7 +28,6 @@ const App: React.FC<mapStatePropsType & mapDispatchPropsType> = (props) => {
 
     const catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
         alert('Some error occurred - ' + e)
-        //console.error(e)
     }
 
     useEffect(() => {
@@ -88,8 +87,5 @@ export const ImOkApp: React.FC = () => {
             </BrowserRouter>
     </>
 }
-//
-// export default compose(
-//     withRouter,
-//     connect(mapStateToProps, {initializeApp}))(App)
+
 export default ImOkApp
