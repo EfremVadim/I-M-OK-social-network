@@ -1,7 +1,7 @@
 import {PhotosType, ProfileType} from "../types/types"
 import {instance, APIResponseType} from "./api"
 
-type SavePhotoResponseDataType = {
+export type SavePhotoResponseDataType = {
     photos: PhotosType
 }
 

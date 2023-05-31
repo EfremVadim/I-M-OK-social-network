@@ -20,6 +20,7 @@ export type ProfileType = {
     fullName: string
     contacts: ContactsType | null
     photos: PhotosType | null
+    aboutMe: string
 }
 export type PhotosType = {
     small: string | null

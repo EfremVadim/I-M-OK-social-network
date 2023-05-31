@@ -1,8 +1,9 @@
 import React from 'react'
 import styles from './FormsControls.module.css'
-import {Field, WrappedFieldProps} from "redux-form";
-import {FieldsValidatorsType} from "../../../utilities/validators/Validators";
-import {WrappedFieldMetaProps} from "redux-form/lib/Field";
+import {Field, WrappedFieldProps} from "redux-form"
+import {FieldsValidatorsType} from "../../../utilities/validators/Validators"
+import {WrappedFieldMetaProps} from "redux-form/lib/Field"
+import {AddPostFormValuesType} from "../../Profile/MyPosts/AddNewPostForm";
 
 type FormControlPropsType = {
     meta: WrappedFieldMetaProps
@@ -11,7 +12,7 @@ type FormControlPropsType = {
 
 const FormControl: React.FC<FormControlPropsType> = ({meta: {touched, error}, children}) => {
 
-    const hasError = touched && error;
+    const hasError = touched && error
 
     return (
         <div className={styles.formControl + ' ' + (hasError ? styles.error : '')}>
@@ -39,6 +40,8 @@ export const Input: React.FC<WrappedFieldProps> = (props) => {
         <input {...input} {...restProps} />
     </FormControl>
 }
+
+export type GetStringKeys<T> = Extract<keyof T, string>
 
  export function createField<FormTypesKey extends string>(validators: Array<FieldsValidatorsType>,
                             placeholder: string | undefined,

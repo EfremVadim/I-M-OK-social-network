@@ -3,7 +3,7 @@ import DialogItem from './DialogItem/DialogsItem'
 import s from './Dialogs.module.css'
 import Message from './Message/Message'
 import {InjectedFormProps, reduxForm} from "redux-form"
-import {createField, Textarea} from "../Common/FormsControls/FormsControls"
+import {createField, GetStringKeys, Textarea} from "../Common/FormsControls/FormsControls"
 import {maxLengthCreator, required} from "../../utilities/validators/Validators"
 import {InitialStateType} from "../../redux/dialogs-reducer"
 
@@ -61,7 +61,7 @@ type PropsType = {}
 type DialogsNewMessageTextFormValuesType = {
     dialogNewMessageText: string
 }
-type DialogFormValuesTypeKeys = Extract<keyof DialogsNewMessageTextFormValuesType, string>
+type DialogFormValuesTypeKeys = GetStringKeys<DialogsNewMessageTextFormValuesType>
 type DialogsPropsType = {
     dialogsPage: InitialStateType
     sendMessage: (messageText: string) => void

@@ -1,33 +1,33 @@
-import React, {useEffect} from 'react';
-import Profile from "./Profile";
-import {connect} from "react-redux";
+import React, {useEffect} from 'react'
+import Profile from "./Profile"
+import {connect} from "react-redux"
 import {
     actions,
     getUserProfile,
     getUserStatus,
     savePhoto, saveProfile,
     updateUserStatus
-} from "../../redux/profile-reducer";
-import {withAuthNavigate} from "../../HOC/withAuthNavigate";
-import {compose} from "redux";
-import {withRouter} from "../../HOC/withRouterComponent";
-import {AppStateType} from "../../redux/redux-store";
+} from "../../redux/profile-reducer"
+import {withAuthNavigate} from "../../HOC/withAuthNavigate"
+import {compose} from "redux"
+import {withRouter} from "../../HOC/withRouterComponent"
+import {AppStateType} from "../../redux/redux-store"
 
 const ProfileContainer: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
 
     let refreshProfile = () => {
-        let userId = props.match.params.userId;
+        let userId = props.match.params.userId
 
         if (!userId) {
-            userId = props.authorizedUserId;
+            userId = props.authorizedUserId
         }
 
         if (!userId) {
             props.router.navigate('login')
         }
 
-        props.getUserProfile(userId);
-        props.getUserStatus(userId);
+        props.getUserProfile(userId)
+        props.getUserStatus(userId)
 
         if (!props.match.params.userId) {
             return <Profile {...props}/>
