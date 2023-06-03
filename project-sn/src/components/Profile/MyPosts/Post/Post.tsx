@@ -1,9 +1,14 @@
-import React from 'react';
-import s from './Post.module.css';
+import React from 'react'
+import s from './Post.module.css'
 import userPhoto from '../../../../assets/images/user.png'
 
-const Post = (props) => {
+type PropsType = {
+    message: string
+    likesCount: number
+    id: number
+}
 
+const Post: React.FC<PropsType> = (props) => {
     return (
         <div className={s.item}>
             <img src={userPhoto}/>
@@ -14,7 +19,7 @@ const Post = (props) => {
                 </span>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Post;                                                                                                                  
+export default Post

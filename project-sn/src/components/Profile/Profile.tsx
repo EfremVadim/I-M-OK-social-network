@@ -2,19 +2,6 @@ import React from 'react'
 import MyPostsContainer from './MyPosts/MyPostsContainer'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import {ProfileType} from "../../types/types"
-import {SavePhotoResponseDataType} from "../../api/profileAPI"
-
-type PropsType = {
-    status: string
-    isOwner: boolean
-    profile: ProfileType
-    fullName: string
-    userId: number
-    updateUserStatus: (status: string) => void
-    savePhoto: (photoFile: File) => SavePhotoResponseDataType
-    saveProfile: (profile: ProfileType) => void
-    captchaUrl: string
-}
 
 const Profile: React.FC<PropsType> = (props) => {
 
@@ -36,3 +23,15 @@ const Profile: React.FC<PropsType> = (props) => {
 }
 
 export default Profile
+
+type PropsType = {
+    captchaUrl: string
+    userId: number
+    status: string
+    isOwner: boolean
+    profile: ProfileType | null
+    fullName: string
+    updateUserStatus: (status: string) => void
+    savePhoto: (photoFile: File) => void
+    saveProfile: (Profile: ProfileType) => Promise<any>
+}

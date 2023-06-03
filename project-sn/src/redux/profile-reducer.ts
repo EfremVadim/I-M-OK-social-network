@@ -28,7 +28,7 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
             }
             return {
                 ...state,
-                posts: [...state.posts, newPost],
+                posts: [...state.posts, newPost]
             }
         case 'SN/PROFILE/DELETE_POST':
             return {
@@ -66,7 +66,7 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
 }
 
 export const actions = {
-    addPostActionCreator: (newPostText: string) => ({
+    addPost: (newPostText: string) => ({
         type: 'SN/PROFILE/ADD-POST', newPostText
     } as const),
     deletePost: (postId: number) => ({

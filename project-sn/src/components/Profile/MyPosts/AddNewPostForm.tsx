@@ -10,11 +10,7 @@ const AddNewPostForm: React.FC<InjectedFormProps<AddPostFormValuesType, PropsTyp
         <form onSubmit={props.handleSubmit}>
             <div>
                 {createField<AddNewPostFormValuesTypeKeys>(
-                    [required], 'Enter new post text', 'newPostText', Input)}
-                <Field validate={[required, maxLength30]}
-                       component={Textarea}
-                       name='newPostText'
-                       placeholder='Enter new text'/>
+                    [required, maxLength30], 'Enter new post text', 'newPostText', Input)}
             </div>
             <div>
                 <button>Add post</button>

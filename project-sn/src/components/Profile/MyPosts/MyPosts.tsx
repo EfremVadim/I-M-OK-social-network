@@ -2,14 +2,16 @@ import React from 'react'
 import s from './MyPosts.module.css'
 import Post from './Post/Post'
 import AddNewPostForm, {AddPostFormValuesType} from "./AddNewPostForm"
-import {PostsType} from "../../../types/types";
+import {PostsType} from "../../../types/types"
 
-type PropsType = {
+export type MapStatePropsType = {
     posts: Array<PostsType>
+}
+export type MapDispatchPropsType = {
     addPost: (newPostText: string) => void
 }
 
-const MyPosts: React.FC<PropsType> = (props) => {
+const MyPosts: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
 
     let postsElements = props.posts.map(p =>
         <Post key={p.id}

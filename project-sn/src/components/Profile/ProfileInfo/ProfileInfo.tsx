@@ -3,8 +3,8 @@ import s from './ProfileInfo.module.css'
 import Preloader from "../../Common/Preloader/Preloader"
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks"
 import userPhoto from '../../../assets/images/user.png'
-import ProfileDataForm from "./ProfileDataForm"
 import {ContactsType, ProfileType} from "../../../types/types"
+import ProfileDataReduxForm from "./ProfileDataForm";
 
 const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
                                                          profile,
@@ -23,8 +23,10 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
     }
 
     const onChangeUserPhoto = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files.length) {
-            savePhoto(e.target?.files[0])
+        if (e.target.files && e.target.files.length) {
+            //todo: typed 'target.files'
+            //@ts-ignore
+            savePhoto(e.target.files[0])
         }
     }
 
@@ -33,11 +35,8 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
     }
     const onSubmit = (formData: ProfileType) => {
         // todo: remove then
-        saveProfile(formData).then(
-            () => {
-                setEditMode(false)
-            }
-        )
+        saveProfile(formData)
+            .then(() => setEditMode(false))
     }
 
     return (
@@ -49,14 +48,15 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
                 {fullName} (ID: {profile.userId})
             </div>
             <div className={s.descriptionBlock}>
-                <img src={profile.photos?.large || userPhoto}/>
+                {/*@ts-ignore*/}
+                <img src={profile.photos.large || userPhoto}/>
             </div>
             <div>{isOwner && <input type="file" onChange={onChangeUserPhoto}/>}</div>
             <div>
                 {editMode
-                    ? <ProfileDataForm initialValues={profile}
-                                       profile={profile}
-                                       onSubmit={onSubmit}/>
+                    ? <ProfileDataReduxForm initialValues={profile}
+                                            profile={profile}
+                                            onSubmit={onSubmit}/>
 
                     : <ProfileData onSubmit={onSubmit}
                                    profile={profile}
@@ -74,7 +74,7 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
 }
 
 type ProfileDataPropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
     status: string
     updateUserStatus: (status: string) => void
     isOwner: boolean
@@ -108,14 +108,14 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({
                 </div>
                 <p>
                     <div>
-
                         <b> -My Contacts- </b> {
                         Object
                             .keys(profile.contacts)
                             .map(key => {
                                 //todo typed profile.contacts
                                 //@ts-ignore
-                                return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]}/>
+                                return <Contact key={key} contactTitle={key}
+                                                contactValue={profile.contacts[key as keyof ContactsType]}/>
                             })
                     }
                     </div>
@@ -140,9 +140,11 @@ type ContactType = {
     contactValue: string
 }
 type ProfileInfoPropsType = {
+    captchaUrl: string
+    userId: number
     status: string
     isOwner: boolean
-    profile: ProfileType
+    profile: ProfileType | null
     fullName: string
     updateUserStatus: (status: string) => void
     savePhoto: (photoFile: File) => void

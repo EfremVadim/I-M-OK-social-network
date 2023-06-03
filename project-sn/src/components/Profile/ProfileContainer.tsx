@@ -12,11 +12,13 @@ import {withAuthNavigate} from "../../HOC/withAuthNavigate"
 import {compose} from "redux"
 import {withRouter} from "../../HOC/withRouterComponent"
 import {AppStateType} from "../../redux/redux-store"
+import {ProfileType} from "../../types/types";
 
-const ProfileContainer: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
+const ProfileContainer: React.FC<PropsType> = (
+    props) => {
 
     let refreshProfile = () => {
-        let userId = props.match.params.userId
+        let userId: number | null = +props.match.params.userId
 
         if (!userId) {
             userId = props.authorizedUserId
@@ -26,17 +28,21 @@ const ProfileContainer: React.FC<MapStatePropsType & MapDispatchPropsType> = (pr
             props.router.navigate('login')
         }
 
-        props.getUserProfile(userId)
-        props.getUserStatus(userId)
+        if (!userId) {
+            console.error('ID should be exists in URI or in State ("authorizedUserId")')
+        } else {
+            props.getUserProfile(userId)
+            props.getUserStatus(userId)
+        }
 
         if (!props.match.params.userId) {
             return <Profile {...props}/>
         }
     }
 
-    useEffect( () => {
+    useEffect(() => {
         refreshProfile()
-    },[props.match.params.userId]  )
+    }, [props.match.params.userId])
 
     // componentDidMount() {
     //     refreshProfile();
@@ -47,10 +53,8 @@ const ProfileContainer: React.FC<MapStatePropsType & MapDispatchPropsType> = (pr
     //         refreshProfile();
     //     }
     // }
-
-        return (
-            <Profile isOwner={!props.match.params.userId} {...props}/>
-        )
+    //@ts-ignore
+    return <Profile isOwner={!props.match.params.userId} {...props}/>
 }
 
 const mapStateToProps = (state: AppStateType) => ({
@@ -59,8 +63,7 @@ const mapStateToProps = (state: AppStateType) => ({
     userId: state.profilePage.userId,
     status: state.profilePage.status,
     authorizedUserId: state.auth.userId,
-    isAuth: state.auth.isAuth,
-
+    isAuth: state.auth.isAuth
 })
 
 export default compose<React.ComponentType>(
@@ -74,10 +77,26 @@ export default compose<React.ComponentType>(
 )
 (ProfileContainer)
 
-type MapStatePropsType = ReturnType<typeof mapStateToProps>
+type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+type OwnPropsType = {
+    userId: number
+}
+type MapStatePropsType = {
+    captchaUrl: string
+    userId: number
+    status: string
+    isOwner: boolean
+    profile: ProfileType | null
+    fullName: string
+    authorizedUserId: number
+    isAuth: boolean
+}
 type MapDispatchPropsType = {
     match: any
     router: any
     getUserProfile: (userId: number) => void
     getUserStatus: (userId: number) => void
+    updateUserStatus: (status: string) => void
+    savePhoto: (file: File) => void
+    saveProfile: (profile: ProfileType) => Promise<any>
 }
