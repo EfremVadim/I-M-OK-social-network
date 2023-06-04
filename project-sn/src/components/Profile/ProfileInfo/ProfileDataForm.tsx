@@ -1,9 +1,9 @@
-import React from "react"
 import {createField, GetStringKeys, Input, Textarea} from "../../Common/FormsControls/FormsControls"
-import {InjectedFormProps, reduxForm} from "redux-form"
 import style from '../../Common/FormsControls/FormsControls.module.css'
+import {InjectedFormProps, reduxForm} from "redux-form"
 import s from '../ProfileInfo/ProfileInfo.module.css'
 import {ProfileType} from "../../../types/types"
+import React from "react"
 
 const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType> & PropsType> = (
     {handleSubmit, profile, error}

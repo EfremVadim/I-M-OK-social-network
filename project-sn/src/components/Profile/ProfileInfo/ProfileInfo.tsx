@@ -6,15 +6,8 @@ import userPhoto from '../../../assets/images/user.png'
 import {ContactsType, ProfileType} from "../../../types/types"
 import ProfileDataReduxForm from "./ProfileDataForm";
 
-const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
-                                                         profile,
-                                                         fullName,
-                                                         status,
-                                                         updateUserStatus,
-                                                         isOwner,
-                                                         savePhoto,
-                                                         saveProfile
-                                                     }) => {
+const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, fullName, status,  savePhoto,
+                                                         updateUserStatus, isOwner, saveProfile}) => {
 
     let [editMode, setEditMode] = useState(false)
 
@@ -48,7 +41,6 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
                 {fullName} (ID: {profile.userId})
             </div>
             <div className={s.descriptionBlock}>
-                {/*@ts-ignore*/}
                 <img src={profile.photos.large || userPhoto}/>
             </div>
             <div>{isOwner && <input type="file" onChange={onChangeUserPhoto}/>}</div>
@@ -73,21 +65,8 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
     )
 }
 
-type ProfileDataPropsType = {
-    profile: ProfileType | null
-    status: string
-    updateUserStatus: (status: string) => void
-    isOwner: boolean
-    onSelectedEditMode: () => void
-}
-
-const ProfileData: React.FC<ProfileDataPropsType> = ({
-                                                         profile,
-                                                         status,
-                                                         updateUserStatus,
-                                                         isOwner,
-                                                         onSelectedEditMode
-                                                     }) => {
+const ProfileData: React.FC<ProfileDataPropsType> = ({profile, status, updateUserStatus,
+                                                         isOwner, onSelectedEditMode}) => {
     return (
         <p>
             <div>
@@ -113,7 +92,6 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({
                             .keys(profile.contacts)
                             .map(key => {
                                 //todo typed profile.contacts
-                                //@ts-ignore
                                 return <Contact key={key} contactTitle={key}
                                                 contactValue={profile.contacts[key as keyof ContactsType]}/>
                             })
@@ -140,13 +118,19 @@ type ContactType = {
     contactValue: string
 }
 type ProfileInfoPropsType = {
-    captchaUrl: string
-    userId: number
     status: string
     isOwner: boolean
-    profile: ProfileType | null
+    profile: ProfileType
     fullName: string
     updateUserStatus: (status: string) => void
     savePhoto: (photoFile: File) => void
     saveProfile: (Profile: ProfileType) => Promise<any>
+}
+type ProfileDataPropsType = {
+    profile: ProfileType
+    status: string
+    updateUserStatus: (status: string) => void
+    isOwner: boolean
+    onSelectedEditMode: () => void
+
 }

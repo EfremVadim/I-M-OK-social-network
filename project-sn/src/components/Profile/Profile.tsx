@@ -25,11 +25,11 @@ const Profile: React.FC<PropsType> = (props) => {
 export default Profile
 
 type PropsType = {
-    captchaUrl: string
     userId: number
+    captchaUrl: string
     status: string
     isOwner: boolean
-    profile: ProfileType | null
+    profile: ProfileType
     fullName: string
     updateUserStatus: (status: string) => void
     savePhoto: (photoFile: File) => void

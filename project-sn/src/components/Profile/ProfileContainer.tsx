@@ -12,7 +12,8 @@ import {withAuthNavigate} from "../../HOC/withAuthNavigate"
 import {compose} from "redux"
 import {withRouter} from "../../HOC/withRouterComponent"
 import {AppStateType} from "../../redux/redux-store"
-import {ProfileType} from "../../types/types";
+import {ProfileType} from "../../types/types"
+import { RouteComponentProps } from "@reach/router"
 
 const ProfileContainer: React.FC<PropsType> = (
     props) => {
@@ -77,23 +78,13 @@ export default compose<React.ComponentType>(
 )
 (ProfileContainer)
 
-type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+type PropsType = MapStatePropsType & MapDispatchPropsType & RouteComponentProps<OwnPropsType>
 type OwnPropsType = {
     userId: number
 }
-type MapStatePropsType = {
-    captchaUrl: string
-    userId: number
-    status: string
-    isOwner: boolean
-    profile: ProfileType | null
-    fullName: string
-    authorizedUserId: number
-    isAuth: boolean
-}
+type MapStatePropsType = ReturnType<typeof mapStateToProps>
+
 type MapDispatchPropsType = {
-    match: any
-    router: any
     getUserProfile: (userId: number) => void
     getUserStatus: (userId: number) => void
     updateUserStatus: (status: string) => void

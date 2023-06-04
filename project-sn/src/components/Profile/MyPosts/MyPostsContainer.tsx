@@ -7,7 +7,7 @@ let mapStateToProps = (state: AppStateType) => {
     return {
         posts: state.profilePage.posts,
     }
-}
+ }
 
 const MyPostsContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(
     mapStateToProps, {addPost: actions.addPost}

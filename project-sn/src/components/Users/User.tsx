@@ -4,13 +4,6 @@ import userPhoto from '../../assets/images/user.png'
 import {NavLink} from "react-router-dom"
 import {UsersType} from "../../types/types"
 
-type PropsType = {
-    user: UsersType
-    followingInProgress: Array<number>
-    follow: (userId: number) => void
-    unFollow: (userId: number) => void
-}
-
 const User: React.FC<PropsType> = ({user, followingInProgress, follow, unFollow}) => {
 
     return (
@@ -51,3 +44,10 @@ const User: React.FC<PropsType> = ({user, followingInProgress, follow, unFollow}
 }
 
 export default User
+
+type PropsType = {
+    user: UsersType
+    followingInProgress: Array<number>
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
+}

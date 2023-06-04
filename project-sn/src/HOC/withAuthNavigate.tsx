@@ -3,14 +3,6 @@ import {Navigate} from "react-router-dom"
 import {connect} from "react-redux"
 import {AppStateType} from "../redux/redux-store"
 
-const mapStateToPropsForNavigate = (state: AppStateType) => ({
-    isAuth: state.auth.isAuth
-} as MapStatePropsType)
-
-type MapStatePropsType = {
-    isAuth: boolean
-}
-type MapDispatchPropsType = {}
 
 export function withAuthNavigate<WCP extends MapStatePropsType>(WrappedComponent: React.ComponentType<WCP>) {
 
@@ -23,3 +15,12 @@ export function withAuthNavigate<WCP extends MapStatePropsType>(WrappedComponent
 
     return connect<MapStatePropsType, MapDispatchPropsType, WCP, AppStateType>(mapStateToPropsForNavigate, {})(NavigateComponent)
 }
+
+const mapStateToPropsForNavigate = (state: AppStateType) => ({
+    isAuth: state.auth.isAuth
+} as MapStatePropsType)
+
+type MapStatePropsType = {
+    isAuth: boolean
+}
+type MapDispatchPropsType = {}

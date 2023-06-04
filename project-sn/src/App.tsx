@@ -19,11 +19,6 @@ import styles from './App.module.css'
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 
-type mapStatePropsType = ReturnType<typeof mapStateToProps>
-type mapDispatchPropsType = {
-    initializeApp: () => void
-}
-
 const App: React.FC<mapStatePropsType & mapDispatchPropsType> = (props) => {
 
     const catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
@@ -89,3 +84,8 @@ export const ImOkApp: React.FC = () => {
 }
 
 export default ImOkApp
+
+type mapStatePropsType = ReturnType<typeof mapStateToProps>
+type mapDispatchPropsType = {
+    initializeApp: () => void
+}
